@@ -1,14 +1,15 @@
 // imports and requires
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
-// setup and settings
-// sets express to read and understand incoming json post data
+app.use(cors());
 app.use(express.json());
 
 
 // routes
 // catch all
+require('./config/mongoose');
 require('./config/routes')(app);
 
 

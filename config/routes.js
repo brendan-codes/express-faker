@@ -1,4 +1,5 @@
-const Fake = require('../Fake');
+let fakes = require('../controllers/fakes');
+let people = require('../controllers/people');
 
 module.exports = function(app) {
     app.all("*", (req, res, next) => {
@@ -6,16 +7,10 @@ module.exports = function(app) {
         next();
     })
 
-    app.get("/fake", (req, res) => {
-        res.json(new Fake());
-    })
+    app.get('/api/person', people.index)
+    app.post('/api/person', people.create)
 
-    app.get("/fake/:id", (req, res) => {
-        res.json({"response": `Your id is ${req.params.id}`});
-    })
-
-    app.post("/fake", (req, res) => {
-        console.log(req.body);
-        res.json({"response": "Your data was passed successfully!"});
-    })
+    app.get("/api/fake", fakes.index)
+    app.get("/api/fake/:id", fakes.getOne)
+    app.post("/api/fake", fakes.create)
 };
